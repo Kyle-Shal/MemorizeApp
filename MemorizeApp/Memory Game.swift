@@ -3,17 +3,29 @@
 //  Stanford Lesson01-Memorize app
 //
 //  Created by Kyle Shal on 2021-02-25.
-//
+// This is the model
 
 import Foundation
 
 struct MemoryGame<CardContent> {
     var cards: Array<Card>
     
-    func choose (card: Card) {
+    mutating func choose (card: Card) {
         print("card chosen: \(card)")
+        //var to store the index of the chosen card in the array from the func
+        let chosenIndex: Int = self.index(of: card)
+        self.cards[chosenIndex].isFaceUp = !self.cards[chosenIndex].isFaceUp
     }
     
+    // func used to locate the index of the chosen card in the array
+    func index(of card: Card) -> Int {
+        for index in 0..<cards.count {
+            if cards[index].id == card.id{
+                return index
+            }
+        }
+        return 0 //TODO: bogus!
+    }
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) ->CardContent) {
         cards = Array<Card>()
         
