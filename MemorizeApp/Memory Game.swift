@@ -13,19 +13,10 @@ struct MemoryGame<CardContent> {
     mutating func choose (card: Card) {
         print("card chosen: \(card)")
         //var to store the index of the chosen card in the array from the func
-        let chosenIndex: Int = self.index(of: card)
+        let chosenIndex: Int = cards.firstIndex(matching: card)
         self.cards[chosenIndex].isFaceUp = !self.cards[chosenIndex].isFaceUp
     }
     
-    // func used to locate the index of the chosen card in the array
-    func index(of card: Card) -> Int {
-        for index in 0..<cards.count {
-            if cards[index].id == card.id{
-                return index
-            }
-        }
-        return 0 //TODO: bogus!
-    }
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) ->CardContent) {
         cards = Array<Card>()
         
